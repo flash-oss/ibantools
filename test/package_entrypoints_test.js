@@ -2,7 +2,7 @@
 
 import { expect } from 'chai';
 import { createRequire } from 'node:module';
-import { electronicFormatIBAN, isValidIBAN } from 'ibantools';
+import { electronicFormatIBAN, isValidIBAN } from 'ibantools-flash';
 
 describe('IBANTools package entrypoints', function() {
   it('resolves named ESM exports from package root', function() {
@@ -11,7 +11,7 @@ describe('IBANTools package entrypoints', function() {
   });
 
   it('keeps CommonJS require working from package root', function() {
-    const cjs = createRequire(import.meta.url)('ibantools');
+    const cjs = createRequire(import.meta.url)('ibantools-flash');
 
     expect(cjs.electronicFormatIBAN('nl91-abna-0417-1643-00')).to.equal('NL91ABNA0417164300');
     expect(cjs.isValidIBAN('NL91ABNA0417164300')).to.equal(true);
