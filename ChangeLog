@@ -1,3 +1,16 @@
+2026-10-28  Oleh Kobeliatskyi <@poputu>
+        * Fixed script/builder.js writing account ranges one character too long
+        * Updated script/registry.txt to the current SWIFT IBAN registry
+        * Took the registry's values for the JO bank code, BR and YE BBAN patterns, and BE, FI, KZ, LV, MU and RO account ranges
+        * Removed the AD and DE hand-fix comments, which the registry now agrees with
+        * Added registry values missing from src/ibantools.ts: account ranges for 18 countries, bank codes for PL and HN, IBANRegistry for BI, DJ, FK and HN
+
+2026-10-26  Oleh Kobeliatskyi <@poputu>
+        * Replaced script/builder.rb with script/builder.js, which uses lil-csv
+        * Added script/update-registry.js to replace script/registry.txt with a newer SWIFT download
+        * Added script/update-src.js to add registry values missing from src/ibantools.ts and list those that differ
+        * Marked the values fixed by hand in src/ibantools.ts with a "Not from the IBAN registry" comment
+
 2026-10-26  Oleh Kobeliatskyi <@poputu>
         * Version 4.5.5, forked as ibantools-flash
 

@@ -815,6 +815,30 @@ describe('IBANTools', function() {
     });
   });
 
+  describe('When calling extractIBAN() with the IBAN registry examples changed in its 2026 release', function() {
+    it('bankIdentifier of JO94CBJO0010000000000131000302 should be CBJO', function() {
+      return expect(iban.extractIBAN('JO94CBJO0010000000000131000302').bankIdentifier).to.equal('CBJO');
+    });
+    it('BR6699999A03000010009795493C1, with letters in its bank code, should be valid', function() {
+      return expect(iban.isValidIBAN('BR6699999A03000010009795493C1')).to.be.true;
+    });
+    it('bankIdentifier of BR6699999A03000010009795493C1 should be 99999A03', function() {
+      return expect(iban.extractIBAN('BR6699999A03000010009795493C1').bankIdentifier).to.equal('99999A03');
+    });
+    [
+      ['BE68539007547034', '007547034'],
+      ['KZ86125KZT5004100100', '125KZT5004100100'],
+      ['LV80BANK0000435195001', 'BANK0000435195001'],
+      ['MU17BOMM0101101030300200000MUR', 'BOMM0101101030300200000MUR'],
+      ['RO49AAAA1B31007593840000', 'AAAA1B31007593840000'],
+      ['FI2112345600000785', '12345600000785'],
+    ].forEach(function(example) {
+      it('accountNumber of ' + example[0] + ' should be ' + example[1], function() {
+        return expect(iban.extractIBAN(example[0]).accountNumber).to.equal(example[1]);
+      });
+    });
+  });
+
   describe('When calling extractIBAN() with invalid IBAN', function() {
     var ext = iban.extractIBAN('BR970036030510009795493P1');
     it('valid should be false', function() {

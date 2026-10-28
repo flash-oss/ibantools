@@ -952,7 +952,14 @@ export const countrySpecs: CountryMapInternal = {
   AQ: {},
   AR: {},
   AS: {},
-  AT: { chars: 20, bban_regexp: '^[0-9]{16}$', IBANRegistry: true, SEPA: true, bank_identifier: '0-4' },
+  AT: {
+    chars: 20,
+    bban_regexp: '^[0-9]{16}$',
+    IBANRegistry: true,
+    SEPA: true,
+    bank_identifier: '0-4',
+    account_indentifier: '9-19',
+  },
   AU: {},
   AW: {},
   AX: {
@@ -984,7 +991,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-2',
-    account_indentifier: '0-16',
+    account_indentifier: '7-15',
   },
   BF: {
     chars: 28,
@@ -997,6 +1004,7 @@ export const countrySpecs: CountryMapInternal = {
     SEPA: true,
     branch_indentifier: '4-7',
     bank_identifier: '0-3',
+    account_indentifier: '12-21',
   },
   BH: {
     chars: 22,
@@ -1008,6 +1016,7 @@ export const countrySpecs: CountryMapInternal = {
   BI: {
     chars: 27,
     bban_regexp: '^[0-9]{23}$',
+    IBANRegistry: true,
     branch_indentifier: '5-9',
     bank_identifier: '0-4',
     account_indentifier: '14-27',
@@ -1026,7 +1035,7 @@ export const countrySpecs: CountryMapInternal = {
   BQ: {},
   BR: {
     chars: 29,
-    bban_regexp: '^[0-9]{23}[A-Z]{1}[A-Z0-9]{1}$',
+    bban_regexp: '^[A-Z0-9]{8}[0-9]{15}[A-Z0-9]{2}$',
     IBANRegistry: true,
     branch_indentifier: '8-12',
     bank_identifier: '0-7',
@@ -1041,6 +1050,7 @@ export const countrySpecs: CountryMapInternal = {
     bban_regexp: '^[A-Z]{4}[0-9]{4}[A-Z0-9]{16}$',
     IBANRegistry: true,
     bank_identifier: '0-3',
+    account_indentifier: '8-27',
   },
   BZ: {},
   CA: {},
@@ -1112,6 +1122,7 @@ export const countrySpecs: CountryMapInternal = {
   DJ: {
     chars: 27,
     bban_regexp: '^[0-9]{23}$',
+    IBANRegistry: true,
     branch_indentifier: '5-9',
     bank_identifier: '0-4',
     account_indentifier: '14-27',
@@ -1164,6 +1175,7 @@ export const countrySpecs: CountryMapInternal = {
     SEPA: true,
     branch_indentifier: '4-7',
     bank_identifier: '0-3',
+    // Not from the IBAN registry: the range derived from its example account number is wrong (082cee2).
     account_indentifier: '14-24',
   },
   ET: {},
@@ -1173,12 +1185,13 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-2',
-    account_indentifier: '0-0',
+    account_indentifier: '4-17',
   },
   FJ: {},
   FK: {
     chars: 18,
     bban_regexp: '^[A-Z]{2}[0-9]{12}$',
+    IBANRegistry: true,
     bank_identifier: '0-1',
     account_indentifier: '6-18',
   },
@@ -1198,6 +1211,7 @@ export const countrySpecs: CountryMapInternal = {
     SEPA: true,
     bank_identifier: '0-4',
     branch_indentifier: '5-9',
+    // Not from the IBAN registry: the range derived from its example account number is wrong (963db14).
     account_indentifier: '14-24',
   },
   GA: {
@@ -1211,6 +1225,7 @@ export const countrySpecs: CountryMapInternal = {
     SEPA: true,
     branch_indentifier: '4-9',
     bank_identifier: '0-3',
+    account_indentifier: '14-21',
   },
   GD: {},
   GE: {
@@ -1281,6 +1296,9 @@ export const countrySpecs: CountryMapInternal = {
   HN: {
     chars: 28,
     bban_regexp: '^[A-Z]{4}[0-9]{20}$',
+    IBANRegistry: true,
+    bank_identifier: '0-3',
+    account_indentifier: '8-27',
   },
   HR: {
     chars: 21,
@@ -1289,6 +1307,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-6',
+    account_indentifier: '11-20',
   },
   HT: {},
   HU: {
@@ -1308,6 +1327,7 @@ export const countrySpecs: CountryMapInternal = {
     SEPA: true,
     branch_indentifier: '4-9',
     bank_identifier: '0-3',
+    account_indentifier: '14-21',
   },
   IL: {
     chars: 23,
@@ -1315,6 +1335,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     branch_indentifier: '3-5',
     bank_identifier: '0-2',
+    account_indentifier: '10-22',
   },
   IM: {},
   IN: {},
@@ -1356,7 +1377,8 @@ export const countrySpecs: CountryMapInternal = {
     bban_regexp: '^[A-Z]{4}[0-9]{4}[A-Z0-9]{18}$',
     IBANRegistry: true,
     branch_indentifier: '4-7',
-    bank_identifier: '4-7',
+    bank_identifier: '0-3',
+    account_indentifier: '12-29',
   },
   JP: {},
   KE: {},
@@ -1383,7 +1405,7 @@ export const countrySpecs: CountryMapInternal = {
     bban_regexp: '^[0-9]{3}[A-Z0-9]{13}$',
     IBANRegistry: true,
     bank_identifier: '0-2',
-    account_indentifier: '0-20',
+    account_indentifier: '4-19',
   },
   LA: {},
   LB: {
@@ -1406,17 +1428,26 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-4',
+    account_indentifier: '9-20',
   },
   LK: {},
   LR: {},
   LS: {},
-  LT: { chars: 20, bban_regexp: '^[0-9]{16}$', IBANRegistry: true, SEPA: true, bank_identifier: '0-4' },
+  LT: {
+    chars: 20,
+    bban_regexp: '^[0-9]{16}$',
+    IBANRegistry: true,
+    SEPA: true,
+    bank_identifier: '0-4',
+    account_indentifier: '9-19',
+  },
   LU: {
     chars: 20,
     bban_regexp: '^[0-9]{3}[A-Z0-9]{13}$',
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-2',
+    account_indentifier: '7-19',
   },
   LV: {
     chars: 21,
@@ -1424,7 +1455,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-3',
-    account_indentifier: '0-21',
+    account_indentifier: '4-20',
   },
   LY: {
     chars: 25,
@@ -1446,6 +1477,7 @@ export const countrySpecs: CountryMapInternal = {
     SEPA: true,
     branch_indentifier: '5-9',
     bank_identifier: '0-4',
+    account_indentifier: '14-26',
   },
   MD: {
     chars: 24,
@@ -1504,6 +1536,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     branch_indentifier: '5-9',
     bank_identifier: '0-4',
+    // Not from the IBAN registry: the range derived from its example account number is wrong (3330155).
     account_indentifier: '8-26',
   },
   MS: {},
@@ -1522,7 +1555,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     branch_indentifier: '6-7',
     bank_identifier: '0-5',
-    account_indentifier: '0-30',
+    account_indentifier: '4-29',
   },
   MV: {},
   MW: {},
@@ -1578,6 +1611,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: false,
     bank_identifier: '0-2',
+    account_indentifier: '7-22',
   },
   PA: {},
   PE: {},
@@ -1593,6 +1627,7 @@ export const countrySpecs: CountryMapInternal = {
     bban_regexp: '^[A-Z0-9]{4}[0-9]{16}$',
     IBANRegistry: true,
     bank_identifier: '0-3',
+    account_indentifier: '8-23',
   },
   PL: {
     chars: 28,
@@ -1601,6 +1636,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     branch_indentifier: '0-7',
+    bank_identifier: '0-7',
     account_indentifier: '2-28',
   },
   PM: {
@@ -1624,6 +1660,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-3',
+    account_indentifier: '12-22',
   },
   PW: {},
   PY: {},
@@ -1645,7 +1682,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     bank_identifier: '0-3',
-    account_indentifier: '0-24',
+    account_indentifier: '4-23',
   },
   RS: {
     chars: 22,
@@ -1696,7 +1733,9 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     SEPA: true,
     branch_indentifier: '2-4',
+    // Not from the IBAN registry: its 5-digit bank code is a 2-digit bank and a 3-digit branch code (#452).
     bank_identifier: '0-1',
+    // Not from the IBAN registry: the range derived from its example account number is wrong (#452).
     account_indentifier: '9-16',
   },
   SJ: {},
@@ -1737,6 +1776,7 @@ export const countrySpecs: CountryMapInternal = {
     IBANRegistry: true,
     branch_indentifier: '4-7',
     bank_identifier: '0-3',
+    account_indentifier: '12-24',
   },
   SV: {
     chars: 28,
@@ -1840,10 +1880,11 @@ export const countrySpecs: CountryMapInternal = {
   },
   YE: {
     chars: 30,
-    bban_regexp: '[A-Z]{4}[0-9]{4}[0-9A-Z]{18}',
+    bban_regexp: '^[A-Z]{4}[0-9]{4}[A-Z0-9]{18}$',
     IBANRegistry: true,
     bank_identifier: '0-3',
     branch_indentifier: '4-7',
+    account_indentifier: '12-29',
   },
   YT: {
     chars: 27,
