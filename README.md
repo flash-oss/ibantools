@@ -14,11 +14,11 @@ We forked it to use fixes and improvements we need without waiting for upstream 
 our changes merged into the original project, and we offer them where they fit, but it is up to its maintainers
 whether they want them.
 
-Changes from IBANTools 4.5.4:
+### What's different from IBANTools 4.5.4
 
-- `extractIBAN()` returns `bankIdentifier` for SK, SM, SO, ST, SV, TL, TN, TR, UA, VA, VG and XK
-  ([upstream PR #694](https://github.com/Simplify/ibantools/pull/694)).
-- `script/builder.rb` reads registry cells that span lines, which had dropped those countries' bank positions.
+The API is the same. `extractIBAN()` returns `bankIdentifier` for SK, SM, SO, ST, SV, TL, TN, TR, UA, VA, VG and XK,
+which the registry builder had lost ([upstream PR #694](https://github.com/Simplify/ibantools/pull/694)). See the
+[ChangeLog](https://github.com/flash-oss/ibantools/blob/master/ChangeLog) for details.
 
 ## About
 
