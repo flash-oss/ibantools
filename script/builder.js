@@ -1,10 +1,5 @@
-/* Builds script/iban_spec.js from the SWIFT IBAN registry.
- *
- * Download: https://www.swift.com/swift-resource/11971/download
- * or whatever the file path is on this page:
- * https://www.swift.com/standards/data-standards/iban-international-bank-account-number
- * and save it as `script/registry.txt` with `npm run update-registry -- <downloaded file>`,
- * or run `npm run build-spec` to rebuild from the current one, and `git diff script/iban_spec.js` to see changes. */
+/* Builds script/iban_spec.js from script/registry.txt, the SWIFT IBAN registry.
+ * Run with `npm run build-spec`. To take a newer registry, see "Updating the IBAN registry" in README.md. */
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
@@ -23,7 +18,7 @@ export const ROW_FIELDS = {
   'Bank identifier position within the BBAN': ['bank_identifier', fixRanges],
   'Branch identifier position within the BBAN': ['branch_indentifier', fixRanges],
   'IBAN electronic format example': ['iban_example', (value) => value],
-  'Domestic account number example': ['account_example', (value) => value.replaceAll(' ', '')],
+  'Domestic account number example': ['account_example', (value) => value.replace(/[ -]/g, '')],
 };
 
 // Parsed as TSV because a quoted cell can span lines (SI's bank identifier position does)

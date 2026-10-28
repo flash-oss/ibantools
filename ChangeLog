@@ -1,15 +1,13 @@
 2026-10-28  Oleh Kobeliatskyi <@poputu>
-        * Fixed script/builder.js writing account ranges one character too long
-        * Updated script/registry.txt to the current SWIFT IBAN registry
-        * Took the registry's values for the JO bank code, BR and YE BBAN patterns, and BE, FI, KZ, LV, MU and RO account ranges
-        * Removed the AD and DE hand-fix comments, which the registry now agrees with
-        * Added registry values missing from src/ibantools.ts: account ranges for 18 countries, bank codes for PL and HN, IBANRegistry for BI, DJ, FK and HN
-
-2026-10-26  Oleh Kobeliatskyi <@poputu>
-        * Replaced script/builder.rb with script/builder.js, which uses lil-csv
-        * Added script/update-registry.js to replace script/registry.txt with a newer SWIFT download
-        * Added script/update-src.js to add registry values missing from src/ibantools.ts and list those that differ
-        * Marked the values fixed by hand in src/ibantools.ts with a "Not from the IBAN registry" comment
+        * Version 4.6.0
+        * extractIBAN() follows the 2026 SWIFT IBAN registry: JO bankIdentifier is the bank code, not the branch digits; PL bankIdentifier is the 8-digit sort code, and PL has no branchIdentifier; HN has a bankIdentifier
+        * extractIBAN() returns accountNumber for AT, BG, BY, GB, HN, HR, HU, IE, IL, JO, LI, LT, LU, MC, OM, PK, PT, RS, ST and YE, and the correct one for BE, FI, KZ, LV, MR, MU and RO
+        * extractIBAN() follows the registry's new account examples for AZ, DK, EE, EG, FO, GL, GR, IT, KW, LB, MT, PL, PS, SA, SC and UA, which keep leading zeros and mostly leave out bank codes
+        * isValidIBAN() follows the registry's BBAN patterns for BR, BY, DO, GE, IE, PK, PS, TR and VG: letters are allowed in BR bank codes and PK and PS account numbers, digits in BY and DO bank codes; digits in GE, IE, PK, PS and VG bank codes and a letter as TR's sixth digit are rejected
+        * getCountrySpecifications() reports BI, DJ, FK and HN as in the IBAN registry
+        * Replaced script/builder.rb with script/builder.js (lil-csv), which writes account ranges as extractIBAN() reads them
+        * Added npm run update-registry, which checks a downloaded registry, and npm run update-src, which carries it into src/ibantools.ts
+        * Marked the values src/ibantools.ts does not take from the registry with a "Not from the IBAN registry" comment
 
 2026-10-26  Oleh Kobeliatskyi <@poputu>
         * Version 4.5.5, forked as ibantools-flash

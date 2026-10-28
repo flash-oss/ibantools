@@ -3,7 +3,7 @@
  * src/ibantools.ts is updated in place, not regenerated: it also holds national checks, countries the registry lacks
  * and fixes to registry values. A fixed value carries a comment starting with MARKER on the line above it, so this
  * never changes it. A value that differs from the registry without that comment is only reported, or replaced
- * with `--overwrite`.
+ * with `--overwrite`. A value the registry lacks is only reported, never removed.
  * Run with `npm run update-src` (or `-- --dry-run` for the report only) after `npm run update-registry`,
  * then review `git diff src/`. */
 
@@ -28,7 +28,15 @@ const FIELD = /(\w+): ('[^']*'|[^,\n}]+)/g;
 
 const dryRun = process.argv.includes('--dry-run');
 const overwrite = process.argv.includes('--overwrite');
-const report = { added: [], overwritten: [], kept: [], markerNotNeeded: [], unexplained: [], skipped: [] };
+const report = {
+  added: [],
+  overwritten: [],
+  kept: [],
+  markerNotNeeded: [],
+  unexplained: [],
+  notInRegistry: [],
+  skipped: [],
+};
 const seen = new Set();
 
 const source = readFileSync(SRC, 'utf8').replace(ENTRY, (entry, code, body) => {
@@ -38,14 +46,14 @@ const source = readFileSync(SRC, 'utf8').replace(ENTRY, (entry, code, body) => {
   const fields = parseFields(body);
   let changed = false;
   for (const name of FIELD_ORDER) {
-    if (spec[name] === undefined) continue;
-    // e.g. TR's registry example has no domestic account number, which builds an empty '0-0' range.
-    if (name.endsWith('dentifier') && isEmptyRange(spec[name])) {
-      report.skipped.push(`${code} ${name}: '${spec[name]}' is an empty range`);
+    const field = fields.find((candidate) => candidate.name === name);
+    const marked = field?.comments.some((comment) => comment.startsWith(MARKER));
+    // e.g. the registry gives FR no branch position, though its IBANs have one.
+    if (spec[name] === undefined) {
+      if (field) (marked ? report.kept : report.notInRegistry).push(`${code} ${name}: ${field.value}, registry none`);
       continue;
     }
     const registry = registryValue(spec, name);
-    const field = fields.find((candidate) => candidate.name === name);
     // src/ibantools.ts leaves SEPA out when it is false.
     if (!field && name === 'SEPA' && registry === 'false') continue;
     if (!field) {
@@ -54,8 +62,7 @@ const source = readFileSync(SRC, 'utf8').replace(ENTRY, (entry, code, body) => {
       changed = true;
       continue;
     }
-    const marked = field.comments.some((comment) => comment.startsWith(MARKER));
-    if (sameValue(name, field.value, registry, spec.length)) {
+    if (sameValue(name, field.value, registry, spec.chars)) {
       if (marked) report.markerNotNeeded.push(`${code} ${name}: ${field.value}`);
     } else if (marked) {
       report.kept.push(`${code} ${name}: ${field.value}, registry ${registry}`);
@@ -78,6 +85,7 @@ if (overwrite) print('Overwritten', report.overwritten);
 print(`Kept, marked "${MARKER}"`, report.kept);
 print('Marked, but the registry now agrees, so the comment can go', report.markerNotNeeded);
 if (!overwrite) print('Differ without a marker (mark them, or run with --overwrite)', report.unexplained);
+print('Not in the registry (mark them, or remove them by hand)', report.notInRegistry);
 print('Skipped', report.skipped);
 if (dryRun) console.log('Dry run: src/ibantools.ts not changed.');
 else if (report.added.length || report.overwritten.length) writeFileSync(SRC, source);
@@ -134,11 +142,6 @@ function mergeGroups(regexp) {
     else groups.push({ range, count: Number(count) });
   }
   return `^${groups.map(({ range, count }) => `${range}{${count}}`).join('')}$`;
-}
-
-function isEmptyRange(range) {
-  const [start, end] = range.split('-').map(Number);
-  return !(end > start);
 }
 
 // Before the first field that comes after it in FIELD_ORDER, otherwise last.

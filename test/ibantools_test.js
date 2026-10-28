@@ -786,8 +786,8 @@ describe('IBANTools', function() {
     it('countryCode should be UA', function() {
       return expect(ext.countryCode).to.equal('UA');
     });
-    it('accountNumber should be 26007233566001', function() {
-      return expect(ext.accountNumber).to.equal('26007233566001');
+    it('accountNumber should be 0000026007233566001', function() {
+      return expect(ext.accountNumber).to.equal('0000026007233566001');
     });
     it('bankIdentifier should be 322313', function() {
       return expect(ext.bankIdentifier).to.equal('322313');
@@ -815,15 +815,53 @@ describe('IBANTools', function() {
     });
   });
 
-  describe('When calling extractIBAN() with the IBAN registry examples changed in its 2026 release', function() {
-    it('bankIdentifier of JO94CBJO0010000000000131000302 should be CBJO', function() {
-      return expect(iban.extractIBAN('JO94CBJO0010000000000131000302').bankIdentifier).to.equal('CBJO');
+  describe('When calling extractIBAN() or isValidIBAN() with examples from the current IBAN registry', function() {
+    [
+      ['JO94CBJO0010000000000131000302', 'CBJO'],
+      ['BR6699999A03000010009795493C1', '99999A03'],
+      ['PL61109010140000071219812874', '10901014'],
+      ['HN88CABF00000000000250005469', 'CABF'],
+    ].forEach(function(example) {
+      it('bankIdentifier of ' + example[0] + ' should be ' + example[1], function() {
+        return expect(iban.extractIBAN(example[0]).bankIdentifier).to.equal(example[1]);
+      });
     });
     it('BR6699999A03000010009795493C1, with letters in its bank code, should be valid', function() {
       return expect(iban.isValidIBAN('BR6699999A03000010009795493C1')).to.be.true;
     });
-    it('bankIdentifier of BR6699999A03000010009795493C1 should be 99999A03', function() {
-      return expect(iban.extractIBAN('BR6699999A03000010009795493C1').bankIdentifier).to.equal('99999A03');
+    // The registry's examples, and the same with one character changed and the IBAN check digits recomputed.
+    [
+      ['BY13NBRB3600900000002Z00AB00', 'the registry example'],
+      ['BY71NBR13600900000002Z00AB00', 'a digit in its bank code'],
+      ['DO28BAGR00000001212453611324', 'the registry example'],
+      ['DO21BAG100000001212453611324', 'a digit in its bank code'],
+      ['GE29NB0000000101904917', 'the registry example'],
+      ['IE29AIBK93115212345678', 'the registry example'],
+      ['PK36SCBL0000001123456702', 'the registry example'],
+      ['PK82SCBL000000112345670A', 'a letter in its account number'],
+      ['PS92PALS000000000400123456702', 'the registry example'],
+      ['PS82PALS00000000040012345670A', 'a letter in its account number'],
+      ['TR330006100519786457841326', 'the registry example'],
+      ['VG96VPVG0000012345678901', 'the registry example'],
+    ].forEach(function(example) {
+      it(example[0] + ', ' + example[1] + ', should be valid', function() {
+        return expect(iban.isValidIBAN(example[0])).to.be.true;
+      });
+    });
+    [
+      ['GE37N10000000101904917', 'a digit in its bank code'],
+      ['IE05AIB193115212345678', 'a digit in its bank code'],
+      ['PK09SCB10000001123456702', 'a digit in its bank code'],
+      ['PS78PAL1000000000400123456702', 'a digit in its bank code'],
+      ['TR7900061A0519786457841326', 'a letter as its reserved sixth digit'],
+      ['VG26VPV10000012345678901', 'a digit in its bank code'],
+    ].forEach(function(example) {
+      it(example[0] + ', with ' + example[1] + ', should be invalid', function() {
+        return expect(iban.isValidIBAN(example[0])).to.be.false;
+      });
+    });
+    it('branchIdentifier of PL61109010140000071219812874 should be undefined', function() {
+      return expect(iban.extractIBAN('PL61109010140000071219812874').branchIdentifier).to.be.undefined;
     });
     [
       ['BE68539007547034', '007547034'],
@@ -832,6 +870,26 @@ describe('IBANTools', function() {
       ['MU17BOMM0101101030300200000MUR', 'BOMM0101101030300200000MUR'],
       ['RO49AAAA1B31007593840000', 'AAAA1B31007593840000'],
       ['FI2112345600000785', '12345600000785'],
+      ['GB29NWBK60161331926819', '31926819'],
+      ['HU42117730161111101800000000', '1111101800000000'],
+      ['RS35260005601001611379', '260005601001611379'],
+      ['MC5811222000010123456789030', '01234567890'],
+      ['MR1300020001010000123456753', '00001234567'],
+      ['AZ21NABZ00000000137010001944', '00000000137010001944'],
+      ['DK5000400440116243', '0440116243'],
+      ['EE382200221020145685', '00221020145685'],
+      ['EG380019000500000000263180002', '00000000263180002'],
+      ['FO6264600001631634', '0001631634'],
+      ['GL8964710001000206', '0001000206'],
+      ['GR1601101250000000012300695', '0000000012300695'],
+      ['IT60X0542811101000000123456', '000000123456'],
+      ['KW81CBKU0000000000001234560101', '0000000000001234560101'],
+      ['LB62099900000001001901229114', '00000001001901229114'],
+      ['MT84MALT011000012345MTLCAST001S', '0012345MTLCAST001S'],
+      ['PL61109010140000071219812874', '109010140000071219812874'],
+      ['PS92PALS000000000400123456702', '000000000400123456702'],
+      ['SA0380000000608010167519', '000000608010167519'],
+      ['SC18SSCB11010000000000001497USD', '0000000000001497'],
     ].forEach(function(example) {
       it('accountNumber of ' + example[0] + ' should be ' + example[1], function() {
         return expect(iban.extractIBAN(example[0]).accountNumber).to.equal(example[1]);

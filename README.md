@@ -14,17 +14,14 @@ We forked it to use fixes and improvements we need without waiting for upstream 
 our changes merged into the original project, and we offer them where they fit, but it is up to its maintainers
 whether they want them.
 
-Changes from IBANTools 4.5.4:
+### What's different from IBANTools 4.5.4
 
-- `extractIBAN()` returns `bankIdentifier` for SK, SM, SO, ST, SV, TL, TN, TR, UA, VA, VG and XK
-  ([upstream PR #694](https://github.com/Simplify/ibantools/pull/694)).
-- `script/builder.rb` reads registry cells that span lines, which had dropped those countries' bank positions.
-- The registry builder is JavaScript (`script/builder.js`, run with `npm run build-spec`) instead of Ruby, so the
-  project needs only Node. It also writes account ranges the way `extractIBAN()` reads them, inclusive: the Ruby builder
-  wrote them one character too long, which contributors had been correcting by hand country by country.
-- `npm run update-registry` checks a newly downloaded SWIFT registry saved as `script/registry.txt`, and
-  `npm run update-src` carries the registry's values into `src/ibantools.ts` without overwriting anything (see
-  [Updating the IBAN registry](#updating-the-iban-registry)).
+The API is the same.
+The registry is now read with [lil-csv](https://www.npmjs.com/package/lil-csv) instead of a Ruby script. This fixed
+values the Ruby script misread.
+The country data follows the current (2026) SWIFT IBAN registry, so `extractIBAN()` and
+`isValidIBAN()` give different results for some countries. See the
+[ChangeLog](https://github.com/flash-oss/ibantools/blob/master/ChangeLog) before upgrading.
 
 ## About
 
@@ -98,19 +95,20 @@ countries the registry lacks and fixes to registry values.
    [SWIFT IBAN page](https://www.swift.com/standards/data-standards/iban-international-bank-account-number).
    SWIFT blocks scripted downloads, so this step is manual.
 2. Save it as `registry.txt` in the `script` folder, replacing the old one, and run `npm run update-registry`.
-   It refuses a file that isn't the full registry. On run, it lists the countries added, removed or changed since the last
+   It refuses a file that isn't the registry or is cut off, lists the countries added, removed or changed since the last
    commit, and rebuilds `script/iban_spec.js`.
 3. Run `npm run update-src` to carry the registry into `src/ibantools.ts` (add `-- --dry-run` to only see the report).
    It adds what `src/ibantools.ts` lacks, such as a missing bank position, and reports every value that differs from
    the registry. It changes a differing value only when run with `-- --overwrite`, and never one marked as a fix.
-   It also lists what it skipped, such as an empty account range from a registry example without an account number.
+   It also lists the values the registry lacks, which it never removes, and the registry countries that have no entry
+   in `src/ibantools.ts`.
 4. Review `git diff`, decide on each reported difference, and add tests for what changed.
 
 A value fixed by hand carries a comment on the line above it, starting with `// Not from the IBAN registry:`, saying
 why and where it was fixed:
 
 ```ts
-    // Not from the IBAN registry: its 5-digit bank code is a 2-digit bank and a 3-digit branch code (#452).
+    // Not from the IBAN registry: its 5-digit bank code is a 2-digit bank and a 3-digit branch code (be43ebb).
     bank_identifier: '0-1',
 ```
 
