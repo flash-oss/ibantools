@@ -1,6 +1,6 @@
 {
-  "name": "ibantools",
-  "version": "4.5.4",
+  "name": "ibantools-flash",
+  "version": "4.5.5",
   "description": "Validation, extraction and creation of IBAN, BBAN, BIC/SWIFT numbers plus some other helpful stuff like ISO 3136-1 alpha 2 country list",
   "keywords": [
     "IBAN",
@@ -11,8 +11,8 @@
     "ISO 3136-1 alpha-2"
   ],
   "sideEffects": false,
-  "homepage": "https://github.com/Simplify/ibantools",
-  "bugs": "https://github.com/Simplify/ibantools/issues",
+  "homepage": "https://github.com/flash-oss/ibantools",
+  "bugs": "https://github.com/flash-oss/ibantools/issues",
   "main": "build/ibantools.cjs",
   "type": "module",
   "module": "jsnext/ibantools.js",
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Simplify/ibantools.git"
+    "url": "git+https://github.com/flash-oss/ibantools.git"
   },
   "scripts": {
     "build": "npm run build-node && npm run build-bower && npm run build-module",
@@ -53,6 +53,7 @@
     "coverage": "npm run build && c8 mocha && c8 report -e \".js\" --reporter=text-lcov > test.lcov",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.js'",
     "prepare": "npm run build-node",
+    "prepublishOnly": "npm run build",
     "docs": "typedoc src/ibantools.ts",
     "all": "npm run test && npm run lint && npm run docs"
   },
