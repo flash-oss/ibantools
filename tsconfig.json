@@ -1,35 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2022",
+    "module": "es2020",
     "strict": true,
-    "module": "amd",
     "declaration": true,
-    "noImplicitAny": true,
-    "removeComments": true,
-    "experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
+    "types": [],
     "rootDir": "src/",
-    "sourceMap": false,
-    "listFiles": true,
     "newLine": "LF",
-    "noEmitOnError": true,
-    "removeComments": false,
-    "ignoreDeprecations": "6.0"
+    "noEmitOnError": true
   },
-  "filesGlob": [
-    "./**/*.ts",
-    "./**/*.tsx",
-    "!./**/*.d.ts",
-    "!./gulpfile.ts",
-    "!./node_modules/**/*.ts",
-    "./node_modules/typescript/lib/lib.es6.d.ts"
-  ],
-  "exclude": [],
-  "files": [
-    "./src/ibantools.ts"
-  ],
-  "types": [],
-  "typedocOptions": {
-    "name": "IBANTools"
-  }
+  "files": ["./src/ibantools.ts"]
 }

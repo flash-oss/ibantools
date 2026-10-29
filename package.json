@@ -33,9 +33,6 @@
     "LICENSE",
     "typings.json"
   ],
-  "directories": {
-    "doc": "docs"
-  },
   "types": "build/ibantools.d.ts",
   "typescript": {
     "definition": "build/ibantools.d.ts"
@@ -45,26 +42,24 @@
     "url": "git+https://github.com/flash-oss/ibantools.git"
   },
   "scripts": {
-    "build": "npm run build-node && npm run build-bower && npm run build-module",
-    "build-node": "rm -rf build && npx tsc --declaration --target es2017 --module commonjs --outDir ./build/ && cp ./build/ibantools.js ./build/ibantools.cjs",
-    "build-bower": "rm -rf dist && npx tsc --declaration --target es2017 --module amd --outDir ./dist/",
-    "build-module": "rm -rf jsnext && npx tsc --target es2017 --module es2020 --outDir ./jsnext/",
+    "build": "npm run build-node && npm run build-module",
+    "build-node": "rm -rf build && tsc --module commonjs --outDir ./build/ && cp ./build/ibantools.js ./build/ibantools.cjs",
+    "build-module": "rm -rf jsnext && tsc --outDir ./jsnext/",
     "test": "npm run build && mocha 'test/**/*.js'",
     "coverage": "npm run build && c8 mocha && c8 report -e \".js\" --reporter=text-lcov > test.lcov",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.js'",
     "prepare": "npm run build-node",
     "prepublishOnly": "npm run build",
-    "docs": "typedoc src/ibantools.ts",
     "build-spec": "node script/builder.js",
     "update-registry": "node script/update-registry.js",
     "update-src": "node script/update-src.js",
-    "all": "npm run test && npm run lint && npm run docs"
+    "all": "npm run test && npm run lint"
   },
   "author": {
-    "name": "Saša Jovanić",
-    "url": "https://www.simplify.ba/"
+    "name": "Flash Payments",
+    "url": "https://flash-payments.com"
   },
-  "license": "MIT or MPL-2.0",
+  "license": "MIT",
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
@@ -82,8 +77,7 @@
     "mocha-lcov-reporter": "^1.2.0",
     "prettier": "^3.0.3",
     "requirejs": "^2.3.6",
-    "typedoc": "^0.28.18",
-    "typescript": "^6.0"
+    "typescript": "^6.0.3"
   },
   "resolutions": {
     "source-map": "^0.8.0-beta.0"

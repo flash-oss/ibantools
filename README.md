@@ -1,7 +1,6 @@
 # ibantools-flash
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![License](https://img.shields.io/badge/License-MPL_2.0-blue)
 [![npm version](https://img.shields.io/npm/v/ibantools-flash)](https://www.npmjs.com/package/ibantools-flash)
 
 ## A fork of IBANTools
@@ -20,8 +19,7 @@ The API is the same.
 The registry is now read with [lil-csv](https://www.npmjs.com/package/lil-csv) instead of a Ruby script. This fixed
 values the Ruby script misread.
 The country data follows the current (2026) SWIFT IBAN registry, so `extractIBAN()` and
-`isValidIBAN()` give different results for some countries. See the
-[ChangeLog](https://github.com/flash-oss/ibantools/blob/master/ChangeLog) before upgrading.
+`isValidIBAN()` give different results for some countries.
 
 ## About
 
@@ -125,7 +123,6 @@ Report problems specific to this fork in [our issues](https://github.com/flash-o
 
 ## License
 
-This work is dual-licensed under MIT and MPL-2.0.
-You can choose between one of them if you use this work.
+This work is licensed under the MIT license (see [LICENSE](LICENSE)).
 
-`SPDX-License-Identifier: MIT OR MPL-2.0`
+`SPDX-License-Identifier: MIT`

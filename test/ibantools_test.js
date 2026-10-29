@@ -1,8 +1,4 @@
-/* Licensed under the Mozilla Public License, Version 2.0 or the MIT license,
- * at your option. This file may not be copied, modified, or distributed
- * except according to those terms.
- * SPDX-FileCopyrightText: Saša Jovanić
- * SPDX-License-Identifier: MIT or MPL/2.0 */
+/*! SPDX-License-Identifier: MIT */
 
 'use strict';
 

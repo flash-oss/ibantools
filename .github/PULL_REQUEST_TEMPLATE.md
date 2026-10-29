@@ -9,7 +9,3 @@ Changes proposed in this pull request:
 
 - [ ] I have added test(s)
 - [ ] My change does not need new tests
-
-### ChangeLog
-
-- [ ] I have added entry in `ChangeLog` file (if not, please do so)
