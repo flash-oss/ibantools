@@ -119,7 +119,7 @@ can go. Mark any value you fix by hand the same way.
 
 Please send fixes to the [original project](https://github.com/Simplify/ibantools) first, following its
 [contribution guide](https://github.com/Simplify/ibantools/blob/master/CONTRIBUTING.md).
-Report problems specific to this fork in [our issues](https://github.com/flash-oss/ibantools/issues).
+Report problems specific to this fork in [our issues](https://github.com/flash-oss/ibantools-minimal/issues).
 
 ## License
 

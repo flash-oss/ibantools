@@ -11,8 +11,8 @@
     "ISO 3166-1 alpha-2"
   ],
   "sideEffects": false,
-  "homepage": "https://github.com/flash-oss/ibantools",
-  "bugs": "https://github.com/flash-oss/ibantools/issues",
+  "homepage": "https://github.com/flash-oss/ibantools-minimal",
+  "bugs": "https://github.com/flash-oss/ibantools-minimal/issues",
   "main": "build/ibantools.cjs",
   "type": "module",
   "exports": {
@@ -35,7 +35,7 @@
   "types": "build/ibantools.d.cts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flash-oss/ibantools.git"
+    "url": "git+https://github.com/flash-oss/ibantools-minimal.git"
   },
   "scripts": {
     "build": "npm run build-node && npm run build-module",
