@@ -1,7 +1,7 @@
-# ibantools-flash
+# ibantools-minimal
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
-[![npm version](https://img.shields.io/npm/v/ibantools-flash)](https://www.npmjs.com/package/ibantools-flash)
+[![npm version](https://img.shields.io/npm/v/ibantools-minimal)](https://www.npmjs.com/package/ibantools-minimal)
 
 ## A fork of IBANTools
 
@@ -9,17 +9,16 @@ This is [Flash Payments](https://flash-payments.com)' fork of [IBANTools](https:
 [Saša Jovanić](https://www.simplify.ba/). IBANTools is an excellent, carefully maintained library, and almost all of the
 work here is his and its contributors'. Thank you!
 
-We forked it to use fixes and improvements we need without waiting for upstream releases. We would be glad to see
-our changes merged into the original project, and we offer them where they fit, but it is up to its maintainers
-whether they want them.
+The IBAN registry changes happen monthly, but the original project gets less than annual updates. This fork will be
+maintained on a monthly basis.
 
 ### What's different from IBANTools 4.5.4
 
 The API is the same.
-The registry is now read with [lil-csv](https://www.npmjs.com/package/lil-csv) instead of a Ruby script. This fixed
-values the Ruby script misread.
-The country data follows the current (2026) SWIFT IBAN registry, so `extractIBAN()` and
-`isValidIBAN()` give different results for some countries.
+
+- Removed the dependency on Ruby: the registry is now read with [lil-csv](https://www.npmjs.com/package/lil-csv).
+- Fixed a bug, which restored support for a dozen countries.
+- The country data follows the current (2026) SWIFT IBAN registry.
 
 ## About
 
@@ -33,13 +32,13 @@ For more information about BIC/SWIFT see [this wikipedia page](https://en.wikipe
 ## Installation
 
 ```
-$ npm install ibantools-flash
+$ npm install ibantools-minimal
 ```
 
 To keep `require('ibantools')` in your code unchanged, install it under the original name with an npm alias:
 
 ```
-$ npm install ibantools@npm:ibantools-flash
+$ npm install ibantools@npm:ibantools-minimal
 ```
 
 ## Usage
@@ -49,7 +48,7 @@ The API is the same as IBANTools; see its [full documentation](http://simplify.g
 ### Node.js - CommonJS
 
 ```js
-const ibantools = require('ibantools-flash');
+const ibantools = require('ibantools-minimal');
 const iban = ibantools.electronicFormatIBAN('NL91 ABNA 0417 1643 00'); // 'NL91ABNA0417164300'
 ibantools.isValidIBAN(iban);
 
@@ -64,7 +63,7 @@ ibantools.isValidBIC('ABNANL2A');
 ### ES modules
 
 ```js
-import { isValidIBAN, extractIBAN } from 'ibantools-flash';
+import { isValidIBAN, extractIBAN } from 'ibantools-minimal';
 ```
 
 ### With TypeScript
@@ -78,7 +77,7 @@ Country specifications can be extended with national BBAN validations by calling
 For example, to fully syntactically check German IBAN, you can install [IBANTools-Germany](https://github.com/baumerdev/ibantools-germany) and add this with
 
 ```
-const ibantools = require('ibantools-flash');
+const ibantools = require('ibantools-minimal');
 const ibantoolsGermany = require("ibantools-germany");
 ibantools.setCountryBBANValidation("DE", ibantoolsGermany.isValidBBAN);
 ```
