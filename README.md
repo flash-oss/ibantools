@@ -16,7 +16,7 @@ maintained on a monthly basis.
 
 The API is the same.
 
-- Removed the dependency on Ruby: the registry is now read with [lil-csv](https://www.npmjs.com/package/lil-csv).
+- Removed the dependency on Ruby.
 - Fixed a bug, which restored support for a dozen countries.
 - Updated the country data to the current (2026) SWIFT IBAN registry, correcting bank codes, account numbers and
   formats in 56 countries.
