@@ -1,5 +1,3 @@
-'use strict';
-
 import { expect } from 'chai';
 import { createRequire } from 'node:module';
 import { electronicFormatIBAN, isValidIBAN } from 'ibantools-flash';

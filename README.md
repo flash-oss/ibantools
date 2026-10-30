@@ -55,7 +55,7 @@ ibantools.isValidIBAN(iban);
 
 // If you want to know reason why IBAN is invalid
 ibantools.validateIBAN('NL91ABNA0517164300');
-// Returns { valid: false, errorCodes: [iban.ValidationErrorsIBAN.WrongIBANChecksum] }
+// Returns { valid: false, errorCodes: [ibantools.ValidationErrorsIBAN.WrongIBANChecksum] }
 
 // Validate BIC
 ibantools.isValidBIC('ABNANL2A');

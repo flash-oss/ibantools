@@ -3,7 +3,6 @@
 /**
  * Validation, extraction and creation of IBAN, BBAN, BIC/SWIFT numbers plus some other helpful stuff
  */
-'use strict';
 
 /**
  * Interface for validation options

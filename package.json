@@ -17,9 +17,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/ibantools.d.ts",
-      "import": "./jsnext/ibantools.js",
-      "require": "./build/ibantools.cjs"
+      "import": {
+        "types": "./jsnext/ibantools.d.ts",
+        "default": "./jsnext/ibantools.js"
+      },
+      "require": {
+        "types": "./build/ibantools.d.cts",
+        "default": "./build/ibantools.cjs"
+      }
     }
   },
   "files": [
@@ -27,14 +32,14 @@
     "jsnext",
     "LICENSE"
   ],
-  "types": "build/ibantools.d.ts",
+  "types": "build/ibantools.d.cts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/flash-oss/ibantools.git"
   },
   "scripts": {
     "build": "npm run build-node && npm run build-module",
-    "build-node": "rm -rf build && tsc --module commonjs --outDir ./build/ && cp ./build/ibantools.js ./build/ibantools.cjs",
+    "build-node": "rm -rf build && tsc --module commonjs --outDir ./build/ && mv build/ibantools.js build/ibantools.cjs && mv build/ibantools.d.ts build/ibantools.d.cts",
     "build-module": "rm -rf jsnext && tsc --outDir ./jsnext/",
     "test": "npm run build && mocha 'test/**/*.js'",
     "coverage": "npm run build && c8 mocha",
@@ -43,8 +48,7 @@
     "prepublishOnly": "npm run build",
     "build-spec": "node script/builder.js",
     "update-registry": "node script/update-registry.js",
-    "update-src": "node script/update-src.js",
-    "all": "npm run test && npm run lint"
+    "update-src": "node script/update-src.js"
   },
   "author": {
     "name": "Flash Payments",
