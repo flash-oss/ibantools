@@ -1,13 +1,5 @@
 node_modules
-.tern-port
 .DS_Store
-.dir-locals.el
-.projectile
 coverage
-.nyc_output
-ghpages
-jsnext
 build
-npm-debug.log
-.log
-test.lcov
+jsnext
